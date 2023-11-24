@@ -1,12 +1,12 @@
 
 vim.g.mapleader = " "
 -- open explorer
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr> :vertical resize 30<cr>', { desc = 'Go to [E]xplorer'})
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 
-vim.keymap.set('n', '<leader>e', ':Lexplore<cr> :vertical resize 30<cr>', { desc = 'Go to [E]xplorer'})
 vim.keymap.set('n', '<leader>q', ':q<cr>', { desc = '[q]uit (buffer)'})
 vim.keymap.set('n', '<leader>ct', ':sp<cr>:term<cr>:resize 20N<cr>i', { desc = '[c]onsole [t]terminal'})
 
@@ -56,3 +56,8 @@ vim.keymap.set('v', '<C-Down>', 'xp`[V`]=gv')
 vim.keymap.set('v', '<C-k>', 'xkP`[V`]=gv')
 vim.keymap.set('v', '<C-j>', 'xp`[V`]=gv')
 
+
+vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
+vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
+vim.keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
+vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
