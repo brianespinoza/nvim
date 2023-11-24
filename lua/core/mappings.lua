@@ -8,7 +8,31 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 
 vim.keymap.set('n', '<leader>q', ':q<cr>', { desc = '[q]uit (buffer)'})
-vim.keymap.set('n', '<leader>ct', ':sp<cr>:term<cr>:resize 20N<cr>i', { desc = '[c]onsole [t]terminal'})
+
+
+local terminal_buffer = nil
+
+function ToggleTerminal()
+    if terminal_buffer ~= nil and vim.api.nvim_buf_is_loaded(terminal_buffer) then
+        -- Check if the terminal is already open in a window
+        for _, win in pairs(vim.api.nvim_list_wins()) do
+            if vim.api.nvim_win_get_buf(win) == terminal_buffer then
+                vim.api.nvim_win_hide(win)
+                return
+            end
+        end
+        -- Terminal is not open, so open it
+        vim.cmd('belowright sp | term')
+        vim.api.nvim_win_set_buf(0, terminal_buffer)
+    else
+        -- Terminal buffer does not exist, so create it
+        vim.cmd('belowright sp | term')
+        terminal_buffer = vim.api.nvim_get_current_buf()
+    end
+end
+
+
+vim.keymap.set('n', '<leader>ct', ToggleTerminal, { desc = '[c]onsole [t]erminal'})
 
 -- Indent whole file and jump back to last edit position
 vim.keymap.set("n", "<leader>=", "ggVG=`.", { desc = '[=] Reindent file' })
@@ -50,6 +74,8 @@ vim.keymap.set('n', '<C-Up>', 'ddkP')
 vim.keymap.set('n', '<C-Down>', 'ddp')
 vim.keymap.set('n', '<C-k>', 'ddkP')
 vim.keymap.set('n', '<C-j>', 'ddp')
+
+
 -- " Bubble multiple lines
 vim.keymap.set('v', '<C-Up>', 'xkP`[V`]=gv')
 vim.keymap.set('v', '<C-Down>', 'xp`[V`]=gv')
