@@ -81,6 +81,18 @@ return require('packer').startup(function(use)
             {'L3MON4D3/LuaSnip'},
         }
     }
+    -- autocompletions
+    use {'hrsh7th/nvim-cmp'}  -- The completion plugin
+    use {'hrsh7th/cmp-buffer'}  -- Buffer completions
+    use {'hrsh7th/cmp-path'}  -- Path completions
+    use {'hrsh7th/cmp-cmdline'}  -- Cmdline completions
+    use {'hrsh7th/cmp-nvim-lsp'}  -- LSP completions
+    use {'hrsh7th/cmp-nvim-lua'}  -- Lua completions for the NeoVim API
+
+    -- For snippet support, which some completions require:
+    use {'L3MON4D3/LuaSnip'}  -- Snippet engine
+    use {'saadparwaiz1/cmp_luasnip'}  -- Snippet completions
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if packer_bootstrap then
