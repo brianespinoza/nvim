@@ -29,7 +29,7 @@ return require('packer').startup(function(use)
     use("nvim-treesitter/nvim-treesitter-context")
 
     -- undotree
-    use({ "jiaoshijie/undotree" })
+    use({ "mbbill/undotree" })
 
     -- fugitive / aka git for neovim
     use({ "tpope/vim-fugitive" })
