@@ -1,3 +1,4 @@
+-- my custom mappings 
 
 vim.g.mapleader = " "
 -- open explorer
@@ -33,6 +34,7 @@ end
 
 
 vim.keymap.set('n', '<leader>ct', ToggleTerminal, { desc = '[c]onsole [t]erminal'})
+vim.api.nvim_set_keymap('t', '<C-x>', [[<C-\><C-n>]], { desc = 'exit terminal mode', noremap = true, silent = true})
 
 -- Indent whole file and jump back to last edit position
 vim.keymap.set("n", "<leader>=", "ggVG=`.", { desc = '[=] Reindent file' })
