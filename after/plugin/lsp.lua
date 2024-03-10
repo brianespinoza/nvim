@@ -1,11 +1,33 @@
+require('neodev').setup()
+
+-- lsp manager
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "tsserver", "eslint", "jsonls", "html", "cssls", "lua_ls"},
-    automatic_installation = true
-})
+    ensure_installed = {
+        "tailwindcss",
+        "tsserver",
+        "eslint",
+        "jsonls",
+        "html",
+        "cssls",
+        "lua_ls",
+    },
+    -- no relation to ensure_installed. will install everything
+    automatic_installation = false
+},
+
+
+    -- MUST BE BEFORE LSPCONFIG SETUP
+    require("neodev").setup({
+    }))
 
 local lsp = require('lspconfig')
 
+-- ctrl k to show method signature
+vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {buffer=true})
+
+
+lsp.tailwindcss.setup {}
 
 
 -- lua lsp config
@@ -25,6 +47,9 @@ lsp.lua_ls.setup {
             telemetry = {
                 enable = false,  -- Disable telemetry collection
             },
+            completion = {
+                callSnippet = "Replace"
+            }
         },
     },
 }

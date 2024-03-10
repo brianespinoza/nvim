@@ -14,7 +14,7 @@ require'nvim-treesitter.configs'.setup {
   auto_install = true,
 
   -- List of parsers to ignore installing (for "all" or "maintained")
-  ignore_install = { "javascript" },
+  ignore_install = { },
 
   highlight = {
     -- `false` will disable the whole extension

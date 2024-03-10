@@ -14,6 +14,18 @@ local packer_bootstrap = ensure_packer()
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     -- My plugins here
+    -- multi line cursor
+    use {
+        "mg979/vim-visual-multi"
+    }
+    -- auto pair parenthesis autocompletions
+    use {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = function()
+            require("nvim-autopairs").setup {}
+        end
+    }
     -- telescope setup
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.4',
@@ -22,6 +34,7 @@ return require('packer').startup(function(use)
     }
     -- color theme setup
     use 'navarasu/onedark.nvim'
+    use("rebelot/kanagawa.nvim")
 
     -- treesitter
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
@@ -37,14 +50,29 @@ return require('packer').startup(function(use)
     -- commentary / aka comment stuff out
     use({ "tpope/vim-commentary" })
 
-    -- git gitter (git in the left-most side of screen)
+    -- git gutter (git in the left-most side of screen)
     use({"airblade/vim-gitgutter"})
 
-    -- harpoon 
-    use("theprimeagen/harpoon")
-
+    -- harpoon  2
+    use{
+        "theprimeagen/harpoon",
+        branch = "harpoon2",
+        requires = { {"nvim-lua/plenary.nvim"} }
+    }
+    -- trouble / diagnostics
+    use({
+        "folke/trouble.nvim",
+        config = function()
+            require("trouble").setup {
+                icons = false,
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    })
     -- copilot
-    use("github/copilot.vim")
+    -- use("github/copilot.vim")
 
     -- netrw icons
     use ('nvim-tree/nvim-web-devicons')
@@ -58,7 +86,6 @@ return require('packer').startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
-
 
     --- lsp config
     use {
@@ -81,6 +108,7 @@ return require('packer').startup(function(use)
             {'L3MON4D3/LuaSnip'},
         }
     }
+    use 'folke/neodev.nvim'
     -- autocompletions
     use {'hrsh7th/nvim-cmp'}  -- The completion plugin
     use {'hrsh7th/cmp-buffer'}  -- Buffer completions

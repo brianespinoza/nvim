@@ -9,7 +9,7 @@ vim.opt.autoread = true -- auto load file changes that occurred outside of vim
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.shiftround = true
-vim.opt.expandtab = true 
+vim.opt.expandtab = true
 
 vim.opt.timeoutlen = 500
 vim.opt.updatetime = 50

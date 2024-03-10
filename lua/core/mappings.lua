@@ -9,6 +9,7 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 
 vim.keymap.set('n', '<leader>q', ':q<cr>', { desc = '[q]uit (buffer)'})
+vim.keymap.set('n', 'Y', 'Vy<Esc>', { desc = '[Y]ank whole line'})
 
 
 local terminal_buffer = nil
@@ -33,22 +34,18 @@ function ToggleTerminal()
 end
 
 
-vim.keymap.set('n', '<leader>ct', ToggleTerminal, { desc = '[c]onsole [t]erminal'})
+vim.keymap.set('n', '<leader>t', ToggleTerminal, { desc = '[t]erminal'})
 vim.api.nvim_set_keymap('t', '<C-x>', [[<C-\><C-n>]], { desc = 'exit terminal mode', noremap = true, silent = true})
 
 -- Indent whole file and jump back to last edit position
 vim.keymap.set("n", "<leader>=", "ggVG=`.", { desc = '[=] Reindent file' })
 
 
--- Previous and next buffer
-vim.keymap.set('n', '<leader>n', '<esc>:bn<cr>', { desc = '[N]ext buffer' })
-vim.keymap.set('n', '<leader>N', '<esc>:bp<cr>', { desc = '[P]previous buffer' })
 
 -- Open fugitive menu
 vim.keymap.set("n", "<leader>G", vim.cmd.Git, { desc = '[G]it interface' })
 
 -- Remove last search term highlight
-vim.keymap.set("n", "<leader>h", vim.cmd.noh, { desc = 'Hide search [H]ighlighs'})
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
@@ -84,8 +81,10 @@ vim.keymap.set('v', '<C-Down>', 'xp`[V`]=gv')
 vim.keymap.set('v', '<C-k>', 'xkP`[V`]=gv')
 vim.keymap.set('v', '<C-j>', 'xp`[V`]=gv')
 
+-- search the current word under the cursor and puts you in insert mode,
+-- then you change the word, press esc, n to find the next instance, . to reapply the change
+vim.keymap.set('n', '<leader>cw', function()
+    vim.fn.setreg('/', '\\<' .. vim.fn.expand('<cword>') .. '\\>')
+    vim.api.nvim_input('"_ciw')
+end, { noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
-vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
-vim.keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
-vim.keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
