@@ -1,3 +1,5 @@
+-- explorer 
+-- see below for keybindings
 require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
 
       on_attach = "default",

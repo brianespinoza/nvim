@@ -51,7 +51,8 @@ return require('packer').startup(function(use)
     use({ "tpope/vim-commentary" })
 
     -- git gutter (git in the left-most side of screen)
-    use({"airblade/vim-gitgutter"})
+    --use({"airblade/vim-gitgutter"})
+    use({"lewis6991/gitsigns.nvim"})
 
     -- harpoon  2
     use{
