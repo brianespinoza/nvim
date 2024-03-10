@@ -5,7 +5,7 @@
 vim.opt.termguicolors = true
 
 function SetColor(color)
-    color = "kanagawa-dragon" -- have a default value : kanagawa-dragon for dark 
+    color = "kanagawa-wave" -- have a default value : kanagawa-dragon for dark 
     vim.cmd.colorscheme(color)
 
     -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
