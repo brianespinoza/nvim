@@ -25,7 +25,8 @@ end
 
 local function search_dotfiles()
     builtin.live_grep({
-        cwd = "~/.config/nvim/"
+        cwd = "~/.config/nvim/",
+        prompt_title = "< .dotfiles >",
     });
 end
 

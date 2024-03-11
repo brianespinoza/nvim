@@ -110,6 +110,8 @@ return require('packer').startup(function(use)
         }
     }
     use 'folke/neodev.nvim'
+    use 'willothy/wezterm.nvim'
+    use('mrjones2014/smart-splits.nvim')
     -- autocompletions
     use {'hrsh7th/nvim-cmp'}  -- The completion plugin
     use {'hrsh7th/cmp-buffer'}  -- Buffer completions
