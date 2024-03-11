@@ -23,11 +23,18 @@ local function live_grep_with_current_word()
     })
 end
 
+local function search_dotfiles()
+    builtin.live_grep({
+        cwd = "~/.config/nvim/"
+    });
+end
+
 -- FILE PICKERS
 vim.keymap.set('n', '<leader>pf', builtin.git_files, { desc = '[p]roject [f]iles' })
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[f]ind [f]iles' })
 vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = '[f]ind [s]tring' })
 vim.keymap.set('n', '<leader>fw', live_grep_with_current_word, { desc = '[f]ind [w]ord' })
+vim.keymap.set('n', '<leader>sd', search_dotfiles, { desc = '[f]ind [w]ord' })
 
 -- VIM PICKERS
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[f]ind [b]uffers' })
