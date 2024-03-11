@@ -8,9 +8,16 @@ vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr> :vertical resize 30<cr>', 
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 -- quit
-vim.keymap.set('n', '<leader>q', ':q<cr>', { desc = '[q]uit (buffer)'})
+-- vim.keymap.set('n', '<leader>q', ':q<cr>', { desc = '[q]uit (buffer)'})
 -- save and close
-vim.api.nvim_set_keymap('n', '<leader>s', ':write | bdelete<CR>', { noremap = true, silent = true })
+
+function SaveAndClose()
+if vim.bo.buftype == '' then
+    vim.cmd('write')
+end
+vim.cmd('bdelete')
+end
+vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua SaveAndClose()<CR>', { noremap = true, silent = true })
 
 vim.keymap.set('n', 'Y', 'Vy<Esc>', { desc = '[Y]ank whole line'})
 
