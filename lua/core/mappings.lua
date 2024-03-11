@@ -7,9 +7,17 @@ vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr> :vertical resize 30<cr>', 
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
-
+-- quit
 vim.keymap.set('n', '<leader>q', ':q<cr>', { desc = '[q]uit (buffer)'})
+-- save and close
+vim.api.nvim_set_keymap('n', '<leader>s', ':write | bdelete<CR>', { noremap = true, silent = true })
+
 vim.keymap.set('n', 'Y', 'Vy<Esc>', { desc = '[Y]ank whole line'})
+
+
+-- focus left right bottom top "screen"
+vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true, silent = true})
 
 
 local terminal_buffer = nil
