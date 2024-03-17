@@ -82,15 +82,8 @@ vim.keymap.set('n', '<Down>', 'gj', { silent = true })
 vim.keymap.set('i', '<Up>', '<C-o>gk', { silent = true })
 vim.keymap.set('i', '<Down>', '<C-o>gj', { silent = true })
 
--- "" Bubbling Text
--- " Bubble single lines
-vim.keymap.set('n', '<C-Up>', 'ddkP')
-vim.keymap.set('n', '<C-Down>', 'ddp')
-vim.keymap.set('n', '<C-k>', 'ddkP')
-vim.keymap.set('n', '<C-j>', 'ddp')
 
-
--- " Bubble multiple lines
+-- " Bubble up in visual mode 
 vim.keymap.set('v', '<C-Up>', 'xkP`[V`]=gv')
 vim.keymap.set('v', '<C-Down>', 'xp`[V`]=gv')
 vim.keymap.set('v', '<C-k>', 'xkP`[V`]=gv')

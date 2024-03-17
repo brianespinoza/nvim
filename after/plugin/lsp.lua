@@ -29,7 +29,6 @@ vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {buffer=true})
 
 lsp.tailwindcss.setup {}
 
-
 -- lua lsp config
 lsp.lua_ls.setup {
     settings = {
