@@ -18,13 +18,12 @@ require("mason-lspconfig").setup({
 
 
     -- MUST BE BEFORE LSPCONFIG SETUP
-    require("neodev").setup({
-    }))
+    require("neodev").setup({ }))
 
 local lsp = require('lspconfig')
 
 -- ctrl k to show method signature
-vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {buffer=true})
+vim.keymap.set('i', '<Tab>', vim.lsp.buf.signature_help, {buffer=true})
 
 
 lsp.tailwindcss.setup {}

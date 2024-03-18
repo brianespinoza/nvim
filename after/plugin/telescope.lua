@@ -39,7 +39,9 @@ vim.keymap.set('n', '<leader>sd', search_dotfiles, { desc = '[f]ind [w]ord' })
 
 -- VIM PICKERS
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[f]ind [b]uffers' })
+vim.keymap.set('n', '<leader>fr', builtin.registers, { desc = '[f]ind [r]egisters' })
 vim.keymap.set('n', '<leader>fc', builtin.colorscheme, { desc = '[f]ind [c]olorscheme' })
+-- Switch tab by index using vim.v.count
 
 -- TREESITTER PICKER
 -- View function names, variables, methods, etc
