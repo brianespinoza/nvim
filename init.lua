@@ -3,6 +3,7 @@ require('core.mappings')
 require('core.plugins')
 require('core.plugins')
 require('core.options')
+
 -- Lua
 -- Default options:
 require('kanagawa').setup({
