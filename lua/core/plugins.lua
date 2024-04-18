@@ -32,6 +32,8 @@ return require('packer').startup(function(use)
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
+    -- rust lsp
+    use 'mrcjkb/rustaceanvim'
     -- color theme setup
     use 'navarasu/onedark.nvim'
     use("rebelot/kanagawa.nvim")

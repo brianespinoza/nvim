@@ -10,7 +10,7 @@ require('gitsigns').setup{
 
         -- Actions
         map('n', '<leader>gs', gs.stage_hunk)
-        map('n', '<leader>gr', gs.reset_hunk)
+        -- map('n', '<leader>gr', gs.reset_hunk)
         map('n', '<leader>gu', gs.undo_stage_hunk)
         map('n', '<leader>gp', gs.preview_hunk)
         map('n', '<leader>gb', function() gs.blame_line{full=true} end)
@@ -23,7 +23,7 @@ require('gitsigns').setup{
 
         map('n', '<leader>td', gs.toggle_deleted)
 
-        map('v', '<leader>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+        -- map('v', '<leader>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
         map('v', '<leader>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
 
     end

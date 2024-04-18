@@ -24,6 +24,10 @@ local lsp = require('lspconfig')
 
 -- ctrl k to show method signature
 vim.keymap.set('i', '<Tab>', vim.lsp.buf.signature_help, {buffer=true})
+vim.keymap.set('i', '<leader>=', vim.lsp.buf.format, {buffer=true})
+vim.keymap.set('i', '<leader>R', vim.lsp.buf.rename, {buffer=true})
+vim.keymap.set('i', '<leader>gr', vim.lsp.buf.references, {buffer=true})
+vim.keymap.set('i', '<C-.>', vim.lsp.buf.completion, {buffer=true})
 
 
 lsp.tailwindcss.setup {}
