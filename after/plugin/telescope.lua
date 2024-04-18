@@ -37,6 +37,7 @@ vim.keymap.set('n', '<leader>fs', builtin.live_grep, { desc = '[f]ind [s]tring' 
 vim.keymap.set('n', '<leader>fw', live_grep_with_current_word, { desc = '[f]ind [w]ord' })
 vim.keymap.set('n', '<leader>sd', search_dotfiles, { desc = '[f]ind [w]ord' })
 
+
 -- VIM PICKERS
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[f]ind [b]uffers' })
 vim.keymap.set('n', '<leader>fr', builtin.registers, { desc = '[f]ind [r]egisters' })
