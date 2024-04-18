@@ -29,7 +29,7 @@ vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true, silent = true})
 
 
 -- Indent whole file and jump back to last edit position
-vim.keymap.set("n", "<leader>=", "ggVG=`.", { desc = '[=] Reindent file' })
+--vim.keymap.set("n", "<leader>=", "ggVG=`.", { desc = '[=] Reindent file' }) // using lsp instead
 
 vim.api.nvim_set_keymap('n', '<leader>]', ':bnext<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>[', ':bprevious<CR>', { noremap = true, silent = true })

@@ -49,12 +49,6 @@ vim.keymap.set('n', '<leader>vm', builtin.treesitter, { desc = '[v]iew [m]ethods
 
 
 
--- NVIM LSP PICKERS
-vim.keymap.set('n', '<leader>vi', builtin.lsp_incoming_calls, { desc = '[v]iew [i]ncoming calls' })
-vim.keymap.set('n', '<leader>vo', builtin.lsp_incoming_calls, { desc = '[v]iew [o]utgoing calls' })
-vim.keymap.set('n', '<leader>gi', builtin.lsp_implementations, { desc = '[g]oto [i]mplementations' })
-vim.keymap.set('n', '<leader>gd', builtin.lsp_definitions, { desc = '[g]oto [d]efinitions' })
-
 -- GIT PICKERS havent implemented. got lazy
 --builtin.git_commits	-- builtin.git_branches	
 -- builtin.git_status	-- builtin.git_stash	
