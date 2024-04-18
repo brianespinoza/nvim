@@ -23,13 +23,14 @@ require("mason-lspconfig").setup({
 local lsp = require('lspconfig')
 
 
-local function lsp_references_telescope()
-    local original_handler = vim.lsp.handlers['textDocument/references']
+-- custom function to pipe lsp references into telescope
+local function lsp_telescope_picker(lsp_method, prompt_title)
+    local original_handler = vim.lsp.handlers[lsp_method]
     local temp_handler = function(err, result, ctx, config)
-        vim.lsp.handlers['textDocument/references'] = original_handler
+        vim.lsp.handlers[lsp_method] = original_handler
 
         if not result or vim.tbl_isempty(result) then
-            vim.notify("No references found", vim.log.levels.INFO)
+            vim.notify(prompt_title .. " not found", vim.log.levels.INFO)
             return
         end
 
@@ -42,12 +43,11 @@ local function lsp_references_telescope()
         local locations = vim.lsp.util.locations_to_items(result, client.offset_encoding)
 
         require('telescope.pickers').new({}, {
-            prompt_title = "LSP References",
+            prompt_title = prompt_title,
             finder = require('telescope.finders').new_table {
                 results = locations,
                 entry_maker = function(entry)
-                    -- Prepend the filename, line number, and column number to the display text
-                    local display_text = string.format("[%d:%d] %s", entry.lnum, entry.col, entry.text )
+                    local display_text = string.format("[%d:%d] %s", entry.lnum, entry.col, entry.text)
                     return {
                         value = entry,
                         display = display_text,
@@ -64,41 +64,61 @@ local function lsp_references_telescope()
                 map('i', '<CR>', function()
                     local selection = require('telescope.actions.state').get_selected_entry()
                     require('telescope.actions').close(prompt_bufnr)
-                    vim.cmd('write')  -- Save the current buffer before opening another file
-                    vim.cmd('e ' .. selection.value.filename)  -- Open the file
-                    vim.api.nvim_win_set_cursor(0, {selection.value.lnum, selection.value.col - 1})  -- Set cursor
+                    vim.cmd('write')
+                    vim.cmd('e ' .. selection.value.filename)
+                    vim.api.nvim_win_set_cursor(0, { selection.value.lnum, selection.value.col - 1 })
                 end)
                 map('n', '<CR>', function()
                     local selection = require('telescope.actions.state').get_selected_entry()
                     require('telescope.actions').close(prompt_bufnr)
-                    vim.cmd('write')  -- Save the current buffer before opening another file
-                    vim.cmd('e ' .. selection.value.filename)  -- Open the file
-                    vim.api.nvim_win_set_cursor(0, {selection.value.lnum, selection.value.col - 1})  -- Set cursor
+                    vim.cmd('write')
+                    vim.cmd('e ' .. selection.value.filename)
+                    vim.api.nvim_win_set_cursor(0, { selection.value.lnum, selection.value.col - 1 })
                 end)
                 return true
             end,
         }):find()
     end
 
-    vim.lsp.handlers['textDocument/references'] = temp_handler
-    vim.lsp.buf.references()
-    vim.lsp.handlers['textDocument/references'] = original_handler
+    vim.lsp.handlers[lsp_method] = temp_handler
+    vim.lsp.buf[lsp_method]()
+    vim.lsp.handlers[lsp_method] = original_handler
 end
 
-vim.keymap.set('n', '<leader>gr', lsp_references_telescope, { buffer = true, noremap = true, silent = true })
 
 
--- ctrl k to show method signature
-vim.keymap.set('i', '<C-.>', vim.lsp.buf.signature_help, { buffer = true })
-vim.keymap.set('n', '<C-k>', vim.lsp.buf.hover, { buffer = true })
-vim.keymap.set('n', '<leader>=', vim.lsp.buf.format, { buffer = true })
-vim.keymap.set('n', '<leader>R', vim.lsp.buf.rename, { buffer = true })
-vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, { buffer = true })
---vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, { buffer = true })
--- view outgoing
-vim.keymap.set('n', '<leader>vo', vim.lsp.buf.outgoing_calls, { buffer = true })
--- view incoming
-vim.keymap.set('n', '<leader>vi', vim.lsp.buf.incoming_calls, { buffer = true }) 
+
+-- Signature Help
+vim.keymap.set('i', '<C-.>', vim.lsp.buf.signature_help, { noremap = true, silent = true })
+
+-- Hover
+vim.keymap.set('n', '<C-k>', vim.lsp.buf.hover, { noremap = true, silent = true })
+
+-- Rename
+vim.keymap.set('n', '<leader>R', vim.lsp.buf.rename, { noremap = true, silent = true })
+
+-- Go to definition
+vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+
+-- References using Telescope
+vim.keymap.set('n', '<leader>gr', function()
+    lsp_telescope_picker('textDocument/references', 'LSP References')
+end, { noremap = true, silent = true })
+
+-- View outgoing calls using Telescope
+vim.keymap.set('n', '<leader>vo', function()
+    lsp_telescope_picker('textDocument/outgoingCalls', 'Outgoing Calls')
+end, { noremap = true, silent = true })
+
+-- View incoming calls using Telescope
+vim.keymap.set('n', '<leader>vi', function()
+    lsp_telescope_picker('textDocument/incomingCalls', 'Incoming Calls')
+end, { noremap = true, silent = true })
+
+-- Formatting
+vim.keymap.set('n', '<leader>=', function()
+    vim.lsp.buf.format({ async = true })
+end, { noremap = true, silent = true })
 
 
 lsp.tailwindcss.setup {}
