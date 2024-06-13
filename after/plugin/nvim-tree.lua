@@ -23,12 +23,12 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
         centralize_selection = false,
         cursorline = true,
         debounce_delay = 15,
-        side = "left",
+        side = "right",
         preserve_window_proportions = false,
         number = false,
         relativenumber = false,
         signcolumn = "yes",
-        width = 30,
+        width = 40,
         float = {
           enable = false,
           quit_on_focus_loss = true,
@@ -57,7 +57,7 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
         highlight_bookmarks = "none",
         highlight_clipboard = "name",
         indent_markers = {
-          enable = false,
+          enable = true,
           inline_arrows = true,
           icons = {
             corner = "└",
@@ -74,12 +74,12 @@ require("nvim-tree").setup { -- BEGIN_DEFAULT_OPTS
               color = true,
             },
             folder = {
-              enable = false,
+              enable = true,
               color = true,
             },
           },
           git_placement = "before",
-          modified_placement = "after",
+          modified_placement = "before",
           diagnostics_placement = "signcolumn",
           bookmarks_placement = "signcolumn",
           padding = " ",
