@@ -151,8 +151,8 @@ lsp.lua_ls.setup {
 lsp.tsserver.setup {
     on_attach = function(client, bufnr)
         -- Disable tsserver formatting if you plan to use eslint or prettier for formatting
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        -- client.resolved_capabilities.document_formatting = false
+        -- client.resolved_capabilities.document_range_formatting = false
 
         -- Additional custom settings or keybindings can be set here
     end

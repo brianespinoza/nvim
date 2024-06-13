@@ -69,17 +69,24 @@ return require('packer').startup(function(use)
         requires = { { "nvim-lua/plenary.nvim" } }
     }
     -- trouble / diagnostics
-    use({
-        "folke/trouble.nvim",
+    use {
+        'folke/trouble.nvim',
         config = function()
-            require("trouble").setup {
-                icons = false,
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
+            require('trouble').setup {}
+            vim.api.nvim_set_keymap('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>',
+                { noremap = true, silent = true, desc = 'Diagnostics (Trouble)' })
+            vim.api.nvim_set_keymap('n', '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
+                { noremap = true, silent = true, desc = 'Buffer Diagnostics (Trouble)' })
+            vim.api.nvim_set_keymap('n', '<leader>cs', '<cmd>Trouble symbols toggle focus=false<cr>',
+                { noremap = true, silent = true, desc = 'Symbols (Trouble)' })
+            vim.api.nvim_set_keymap('n', '<leader>cl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+                { noremap = true, silent = true, desc = 'LSP Definitions / references / ... (Trouble)' })
+            vim.api.nvim_set_keymap('n', '<leader>xL', '<cmd>Trouble loclist toggle<cr>',
+                { noremap = true, silent = true, desc = 'Location List (Trouble)' })
+            vim.api.nvim_set_keymap('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>',
+                { noremap = true, silent = true, desc = 'Quickfix List (Trouble)' })
         end
-    })
+    }
     -- copilot
     -- use("github/copilot.vim")
 
@@ -121,15 +128,15 @@ return require('packer').startup(function(use)
     use 'willothy/wezterm.nvim'
     use('mrjones2014/smart-splits.nvim')
     -- autocompletions
-    use { 'hrsh7th/nvim-cmp' }   -- The completion plugin
-    use { 'hrsh7th/cmp-buffer' } -- Buffer completions
-    use { 'hrsh7th/cmp-path' }   -- Path completions
-    use { 'hrsh7th/cmp-cmdline' } -- Cmdline completions
+    use { 'hrsh7th/nvim-cmp' }     -- The completion plugin
+    use { 'hrsh7th/cmp-buffer' }   -- Buffer completions
+    use { 'hrsh7th/cmp-path' }     -- Path completions
+    use { 'hrsh7th/cmp-cmdline' }  -- Cmdline completions
     use { 'hrsh7th/cmp-nvim-lsp' } -- LSP completions
     use { 'hrsh7th/cmp-nvim-lua' } -- Lua completions for the NeoVim API
 
     -- For snippet support, which some completions require:
-    use { 'L3MON4D3/LuaSnip' }       -- Snippet engine
+    use { 'L3MON4D3/LuaSnip' }         -- Snippet engine
     use { 'saadparwaiz1/cmp_luasnip' } -- Snippet completions
 
     -- Automatically set up your configuration after cloning packer.nvim
