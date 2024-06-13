@@ -6,7 +6,7 @@ require("mason-lspconfig").setup({
         ensure_installed = {
             "tailwindcss",
             "tsserver",
-            "eslint",
+            -- "eslint",
             "jsonls",
             "html",
             "cssls",
@@ -159,18 +159,18 @@ lsp.tsserver.setup {
 }
 
 -- eslint config
-lsp.eslint.setup {
-    -- Add custom settings as needed
-    settings = {
-        -- For example, configuring ESLint options
-        format = {
-            enable = true, -- Enable ESLint formatting
-        },
-    },
-    on_attach = function(client, bufnr)
-        -- Additional custom settings or keybindings can be set here
-    end
-}
+-- lsp.eslint.setup {
+--     -- Add custom settings as needed
+--     settings = {
+--         -- For example, configuring ESLint options
+--         format = {
+--             enable = true, -- Enable ESLint formatting
+--         },
+--     },
+--     on_attach = function(client, bufnr)
+--         -- Additional custom settings or keybindings can be set here
+--     end
+-- }
 
 
 vim.diagnostic.config({

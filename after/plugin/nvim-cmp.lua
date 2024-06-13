@@ -1,4 +1,4 @@
-local cmp = require'cmp'
+local cmp = require 'cmp'
 
 
 
@@ -40,6 +40,7 @@ cmp.setup({
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
     }),
     sources = cmp.config.sources({
+        { name = "supermaven" },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
     }, {
