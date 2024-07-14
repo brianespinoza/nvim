@@ -60,6 +60,8 @@ vim.keymap.set('n', '<Down>', 'gj', { silent = true })
 vim.keymap.set('i', '<Up>', '<C-o>gk', { silent = true })
 vim.keymap.set('i', '<Down>', '<C-o>gj', { silent = true })
 
+-- in visual mode, leader p will paste to the clipboard using the _ register
+vim.keymap.set('v', '<leader>p', '"_P', { desc = '[p]aste to clipboard' })
 
 -- search the current word under the cursor and puts you in insert mode,
 -- then you change the word, press esc, n to find the next instance, . to reapply the change
