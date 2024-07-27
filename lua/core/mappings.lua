@@ -1,9 +1,9 @@
--- my custom mappings 
+-- my custom mappings
 
 vim.g.mapleader = " "
 -- open explorer
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr> :vertical resize 40<cr>', { desc = 'Go to [E]xplorer'})
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr> :vertical resize 40<cr>', { desc = 'Go to [E]xplorer' })
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
@@ -12,27 +12,28 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 -- save and close
 
 function SaveAndClose()
-if vim.bo.buftype == '' then
-    vim.cmd('write')
+    if vim.bo.buftype == '' then
+        vim.cmd('write')
+    end
+    vim.cmd('bdelete')
 end
-vim.cmd('bdelete')
-end
+
 vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua SaveAndClose()<CR>', { noremap = true, silent = true })
 
-vim.keymap.set('n', 'Y', 'Vy<Esc>', { desc = '[Y]ank whole line'})
+vim.keymap.set('n', 'Y', 'Vy<Esc>', { desc = '[Y]ank whole line' })
 
 
 -- focus left right bottom top "screen"
-vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
 
 
 -- Indent whole file and jump back to last edit position
 --vim.keymap.set("n", "<leader>=", "ggVG=`.", { desc = '[=] Reindent file' }) // using lsp instead
 
-vim.api.nvim_set_keymap('n', '<leader>]', ':bnext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>[', ':bprevious<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>]', '<C-i>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>[', '<C-o>', { noremap = true, silent = true })
 
 
 -- Open fugitive menu
@@ -69,4 +70,3 @@ vim.keymap.set('n', '<leader>cw', function()
     vim.fn.setreg('/', '\\<' .. vim.fn.expand('<cword>') .. '\\>')
     vim.api.nvim_input('"_ciw')
 end, { noremap = true, silent = true })
-

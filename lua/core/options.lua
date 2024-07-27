@@ -15,7 +15,7 @@ vim.opt.timeoutlen = 500
 vim.opt.updatetime = 50
 
 
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 30
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -58,10 +58,11 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "100"
+
+-- jcroql
