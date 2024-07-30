@@ -1,1 +1,7 @@
 plugin/packer_compiled.lua
+default.etcd/
+hyperfine-lazy-output.out
+hyperfine-output.out
+luarocks-3.11.1.tar.gz
+luarocks-3.11.1
+
