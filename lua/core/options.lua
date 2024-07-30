@@ -1,3 +1,8 @@
+--print('hello from core/options!')
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 vim.opt.backspace = '2'
 vim.opt.showcmd = true
@@ -57,6 +62,7 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
+
 
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")

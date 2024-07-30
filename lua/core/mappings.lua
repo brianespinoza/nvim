@@ -1,9 +1,10 @@
 -- my custom mappings
+--print("hello from lua/core/mappings.lua!")
 
 vim.g.mapleader = " "
 -- open explorer
 -- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr> :vertical resize 40<cr>', { desc = 'Go to [E]xplorer' })
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr>', { desc = 'Go to [E]xplorer' })
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
