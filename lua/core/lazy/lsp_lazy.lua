@@ -3,42 +3,27 @@ return {
     dependencies = {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
-        -- supermaven 
-        "supermaven-inc/supermaven-nvim",
+        'supermaven-inc/supermaven-nvim',
         'hrsh7th/nvim-cmp',
         'hrsh7th/cmp-nvim-lsp',
-        -- autocompletions
-        'hrsh7th/cmp-buffer',       -- Buffer completions
-        'hrsh7th/cmp-path',         -- Path completions
-        'hrsh7th/cmp-cmdline',      -- Cmdline completions
-        'hrsh7th/cmp-nvim-lsp',     -- LSP completions
-        'hrsh7th/cmp-nvim-lua',     -- Lua completions for the NeoVim API
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lua',
         'l3mon4d3/luasnip',
-        'saadparwaiz1/cmp_luasnip', -- Snippet completions
-        'mrcjkb/rustaceanvim',      -- rust lsp
+        'saadparwaiz1/cmp_luasnip',
+        'mrcjkb/rustaceanvim',
     },
     config = function()
-        -- Signature Help (insert) -- CTRL + . for signature help
-        -- Signature Help (normal) -- K for signature help
+        -- Key mappings for LSP features
         vim.keymap.set('i', '<C-.>', vim.lsp.buf.signature_help, { noremap = true, silent = true })
-
-
-        -- ga for get actions
         vim.keymap.set('n', '<leader>ga', vim.lsp.buf.code_action, { noremap = true, silent = true })
-
-        -- Rename
         vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, { noremap = true, silent = true })
-
-        -- Rename
         vim.keymap.set('n', '<leader>R', vim.lsp.buf.rename, { noremap = true, silent = true })
-
-        -- Go to definition
         vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, { noremap = true, silent = true })
-
-        -- Formatting
-        vim.keymap.set('n', '<leader>=', function()
-            vim.lsp.buf.format({ async = true })
-        end, { noremap = true, silent = true })
+        vim.keymap.set('n', '<leader>=', function() vim.lsp.buf.format({ async = true }) end,
+            { noremap = true, silent = true })
 
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
@@ -46,28 +31,26 @@ return {
             "force",
             {},
             vim.lsp.protocol.make_client_capabilities(),
-            cmp_lsp.default_capabilities())
+            cmp_lsp.default_capabilities()
+        )
+
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "tailwindcss",
                 "tsserver",
-                -- "eslint",
                 "jsonls",
                 "html",
                 "cssls",
                 "lua_ls",
-                -- "rust_analyzer"
             },
-            -- no relation to ensure_installed. will install everything
             automatic_installation = false,
             handlers = {
-                function(server_name) -- default handler (optional)
+                function(server_name) -- Default handler
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
                 end,
-
                 zls = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.zls.setup({
@@ -94,16 +77,14 @@ return {
                                     globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
                                 },
                                 workspace = {
-                                    -- Make the Neovim runtime files discoverable to the server
                                     library = vim.api.nvim_get_runtime_file("", true),
                                 },
                                 telemetry = {
-                                    enable = false, -- Disable telemetry collection
+                                    enable = false,
                                 },
                                 completion = {
                                     callSnippet = "Replace",
                                 },
-
                             }
                         }
                     }
@@ -120,16 +101,12 @@ return {
                                         vim.lsp.codelens.refresh()
                                     end,
                                 })
-                                -- Optional: Display CodeLens immediately after attaching
-                                vim.lsp.codelens.refresh()
+                                vim.lsp.codelens.refresh() -- Refresh CodeLens immediately
                             end
 
                             -- Print capabilities for debugging
                             -- print(vim.inspect(client.server_capabilities))
                         end,
-
-                        -- Additional setup options for tsserver can be added here
-
                         capabilities = capabilities,
                     }
                 end,
@@ -142,12 +119,10 @@ return {
             }
         })
 
-
         vim.api.nvim_create_autocmd("LspAttach", {
             callback = function(args)
                 local bufnr = args.buf
                 local client = vim.lsp.get_client_by_id(args.data.client_id)
-                -- if client is not nil
                 if client ~= nil and client.supports_method("textDocument/completion") then
                     vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
                 end
@@ -156,8 +131,8 @@ return {
                 end
             end,
         })
+
         vim.diagnostic.config({
-            -- update_in_insert = true,
             float = {
                 focusable = false,
                 style = "minimal",
@@ -166,78 +141,41 @@ return {
                 header = "",
                 prefix = "",
             },
-            -- virtual_text = {
-            --     prefix = '●', -- Could be '■', '▎', 'x'
-            --     source = "if_many", -- Or "if_many"
-            --     format = function(diagnostic)
-            --         return diagnostic.message
-            --     end
-            -- }
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
-        -- helps in deciding if we should trigger the completion menu
         local function has_words_before()
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
             return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
         end
 
-        -- cmp config
         cmp.setup({
             snippet = {
                 expand = function(args)
-                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                    require('luasnip').lsp_expand(args.body)
                 end,
             },
-            -- primeagens config : testing it out
             mapping = cmp.mapping.preset.insert({
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
-
-            -- my old config, in case I want to go back
-            -- mapping = cmp.mapping.preset.insert({
-            --     ['<Tab>'] = cmp.mapping(function(fallback)
-            --         if cmp.visible() then
-            --             cmp.select_next_item()
-            --         elseif has_words_before() then
-            --             cmp.complete()
-            --         else
-            --             fallback()
-            --         end
-            --     end, { "i", "s" }),
-
-            --     ['<S-Tab>'] = cmp.mapping(function(fallback)
-            --         if cmp.visible() then
-            --             cmp.select_prev_item()
-            --         else
-            --             fallback()
-            --         end
-            --     end, { "i", "s" }),
-            --     ['<C-j>'] = cmp.mapping.scroll_docs(-4),
-            --     ['<C-k>'] = cmp.mapping.scroll_docs(4),
-            --     ['<C-Space>'] = cmp.mapping.complete(),
-            --     ['<C-e>'] = cmp.mapping.close(),
-            --     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-            -- }),
             sources = cmp.config.sources({
-                    { name = "supermaven" },
-                    { name = 'nvim_lsp' },
-                    { name = 'luasnip' }, -- For luasnip users.
-                },
-                {
-                    { name = 'buffer' },
-                })
+                { name = "supermaven" },
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' },
+            }, {
+                { name = 'buffer' },
+            })
         })
 
-        -- Use buffer source for `/` (searching) and `:` (command line)
         cmp.setup.cmdline('/', {
             sources = {
                 { name = 'buffer' }
             }
         })
+
         cmp.setup.cmdline(':', {
             sources = cmp.config.sources({
                 { name = 'path' }

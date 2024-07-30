@@ -4,8 +4,10 @@ return {
         'nvim-tree/nvim-web-devicons', -- optional
     },
     lazy = false,
-    config = function()
-        require("nvim-tree").setup({ -- BEGIN_DEFAULT_OPTS
+    config = function(_, opts)
+        require("nvim-tree").setup(opts)
+    end,
+    opts = {
 
         on_attach = "default",
         hijack_cursor = false,
@@ -261,8 +263,7 @@ return {
                 watcher = false,
             },
         },
-    })
-    end,
+    }
 }
 
 -- Function to open

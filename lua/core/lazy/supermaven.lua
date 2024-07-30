@@ -1,5 +1,6 @@
 return {
     "supermaven-nvim",
+    -- default opts if we ever decide to use them. we'll need to add a config section
     opts = {
         keymaps = {
             accept_suggestion = "<Tab>",

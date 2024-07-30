@@ -31,27 +31,22 @@ return {
                 "<leader>tq",
                 "<cmd>Trouble qflist toggle focus=true<cr>",
                 desc = "[T]rouble [Q]uickfix List",
-            },
+            }
         },
         opts = {}, -- for default options, refer to the configuration section for custom setup.
 
         config = function()
-            require("trouble").setup({
-                icons = false,
-            })
+            local t = require("trouble")
+            t.setup({})
+            vim.keymap.set("n", "<leader>tw", function() t.toggle("workspace_diagnostics") end)
 
-            vim.keymap.set("n", "<leader>tt", function()
-                require("trouble").toggle()
-            end)
+            -- vim.keymap.set("n", "<leader>tt", function()
+            --     require("trouble").toggle()
+            -- end)
 
-            vim.keymap.set("n", "[t", function()
-                require("trouble").next({skip_groups = true, jump = true});
-            end)
+            -- [d: Move to the previous diagnostic in the current buffer. See :help vim.diagnostic.goto_prev().
 
-            vim.keymap.set("n", "]t", function()
-                require("trouble").previous({skip_groups = true, jump = true});
-            end)
-
+            -- ]d: Move to the next diagnostic. See :help vim.diagnostic.goto_next().
         end
     },
 }

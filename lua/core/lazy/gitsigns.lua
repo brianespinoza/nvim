@@ -3,8 +3,10 @@
 return {
     {
         "lewis6991/gitsigns.nvim",
-        config = function()
+        config = function(_, opts)
             vim.cmd("set statusline+=%{get(b:,'gitsigns_status','')}");
+            local gs = require("gitsigns")
+            gs.setup(opts)
         end,
         opts = {
             on_attach = function(bufnr)
